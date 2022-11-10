@@ -20,7 +20,6 @@ const TerminalBox = () =>{
             display:block;
             position:absolute;
             z-index:9;
-            overflow:scroll;
             ">
                 <div id="terminal-window-dragger">Click here to move</div>
                 
