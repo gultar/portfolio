@@ -5,6 +5,7 @@ const commands = {
   "echo":"Outputs a string into the console. Usage: echo string. Ex: echo Hello World",
   "background":"Changes the background image. Usage: background http://url.url",
   "goto":"Navigates to another page on website",
+  "reset":"Resets terminal window's size and position"
 }
 
 class TerminalEmulator{ 
