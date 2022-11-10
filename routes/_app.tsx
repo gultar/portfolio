@@ -16,7 +16,7 @@ export default function App({ Component }: AppProps) {
       </Head>
       <div class="flex">
         <div id="page-anchor"></div>
-        <div class="max-w-xl my-8 mx-auto lg:mx-2 sm:mx-1 text-sm text-white font-plex leading-none tracking-wide md:my-3">
+        <div id="main-container" class="max-w-xl my-8 mx-auto lg:mx-2 sm:mx-1 text-sm text-white font-plex leading-none tracking-wide md:my-3">
             <TerminalBox/>
             <Component />
         </div>

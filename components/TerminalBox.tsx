@@ -24,7 +24,7 @@ const TerminalBox = () =>{
             ">
                 <div id="terminal-window-dragger">Click here to move</div>
                 
-                <div>
+                <div id="terminal-display">
 
                     <div id="container">
                 

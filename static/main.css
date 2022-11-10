@@ -2,7 +2,11 @@
     position:fixed;
     background-color: #404347;
     color:white;
+
+    background: url("https://klondikelubricants.com/wp-content/uploads/2015/06/The-best-top-desktop-space-wallpapers-0n-hd-space-wallpaper-horse-head-nebula.jpeg");
+    background-size: cover;
   }
+
   #terminal-window{
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,6 +20,12 @@
     overflow:auto;
     border-radius:5px;
   }
+
+  .terminal-collapsed{
+    display: none;
+    overflow: hidden;
+  }
+
   #terminal-window-dragger{
     display:flex;
     justify-content: center;
