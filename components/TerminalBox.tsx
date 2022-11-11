@@ -16,31 +16,28 @@ const TerminalBox = () =>{
                     <script src={asset("./main.js")}></script>
                     <script src={asset("./window-drag.js")}></script>
             </Head>
-            <div id="terminal-window" style="
-            display:block;
-            position:absolute;
-            z-index:9;
-            ">
-                <div id="terminal-window-dragger">Click here to move</div>
-                
-                <div id="terminal-display">
+            <div id="terminal-window" style="resize: both;">
+                    <div id="terminal-window-dragger">
+                       <a id="collapsible-icon">
+                        <div class="wb-control"><span class="wb-min"></span></div>
+                     
+                        </a>
+                        <span>Click here to move</span>
 
-                    <div id="container">
-                
-                        <output>
-                        </output>
-                
-                        <div action="#" id="input-line" class="input-line">
-                
-                        <div class="prompt"></div><div><input class="cmdline" autofocus /></div>
-                
-                        </div>
-                
-                        <button id="mobile-enter">Enter</button>
                     </div>
+                    <div id="terminal-display">
+                        <div id="container">
+                            <output>
+                            </output>
+                    
+                            <div action="#" id="input-line" class="input-line">
+                                <div class="prompt"></div><div><input class="cmdline" autofocus /></div>
+                            </div>
+                            <button id="mobile-enter">Enter</button>
+                        </div>
+                    </div>
+                    <script src={asset("./window-drag.js")}></script>
                 </div>
-                <script src={asset("./window-drag.js")}></script>
-            </div>
         </>
         
     )

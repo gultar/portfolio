@@ -1,15 +1,4 @@
-const commands = {
-  "help":"Displays this message",
-  "clear":"Clears the console",
-  "date":"Displays the current date",
-  "echo":"Outputs a string into the console. Usage: echo string. Ex: echo Hello World",
-  "background":"Changes the background image. Usage: background http://url.url",
-  "goto":"Navigates to another page on website",
-  "reset":"Resets terminal window's size and position"
-}
-
-class TerminalEmulator{ 
-
+class TerminalEmulator{
   constructor(cmdLineContainer, outputContainer, terminalContainer){
     this.cmdLine_ = document.querySelector(cmdLineContainer);
     this.output_ = document.querySelector(outputContainer);
@@ -18,6 +7,44 @@ class TerminalEmulator{
     this.history_ = [];
     this.histpos_ = 0;
     this.histtemp_ = 0;
+    this.helpMessages = {
+      "help":"Displays this message",
+      "clear":"Clears the console",
+      "date":"Displays the current date",
+      "echo":"Outputs a string into the console. Usage: echo string. Ex: echo Hello World",
+      "background":"Changes the background image. Usage: background http://url.url",
+      "goto":"Navigates to another page on website",
+      "window":"Creates a new window element"
+    }
+    this.commands = {
+      help:(args, cmd)=>{
+        this.runHelp(args, cmd);
+      },
+      clear:(args, cmd)=>{
+        this.clear(args, cmd);
+      },
+      echo:(args, cmd)=>{
+        this.output(args)
+      },
+      date:(args, cmd)=>{
+        this.output( new Date() );
+      },
+      goto:(args, cmd)=>{
+        this.redirect(args[0])
+      },
+      background:(args, cmd)=>{
+        $('body').css("background-image", "url("+args[0]+")")
+      },
+      window:()=>{
+        const win = new WinBox({ title: "Window Title" });
+      },
+      wiki:(args)=>{ //
+        if(args.length == 0){
+          args = [["https://wikipedia.org"]]
+        }
+        new WinBox({ title: "Window Title", html:`<iframe src="${args[0]}"></iframe>` });
+      }
+    }
   }
 
   init(){
@@ -45,8 +72,8 @@ class TerminalEmulator{
   }
 
   outputHelpMenu(){
-    for(const name of Object.keys(commands)){
-      this.output(this.formatHelpMessage(name, commands[name]));
+    for(const command of Object.keys(this.helpMessages)){
+      this.output(this.formatHelpMessage(command, this.helpMessages[command]));
     }
   }
 
@@ -69,16 +96,6 @@ class TerminalEmulator{
       this.initTerminalMsg();
   }
 
-  getDocHeight_() {
-    const d = document;
-
-    return Math.max(
-        Math.max(d.body.scrollHeight, d.documentElement.scrollHeight),
-        Math.max(d.body.offsetHeight, d.documentElement.offsetHeight),
-        Math.max(d.body.clientHeight, d.documentElement.clientHeight)
-    );
-  }
-
   //Already existing
   processNewCommand(e){
     if (e.key == "Tab") { // tab
@@ -91,31 +108,20 @@ class TerminalEmulator{
         this.histpos_ = this.history_.length;
       }
 
-      const [ cmd, ...args ] = this.parseArguments(this.cmdLine_.value);
-      
-      this.addCurrentLineToConsole();
-
-      switch (cmd) {
-        case 'echo': this.output(args)
-          break;
-        case 'clear': this.clear(args, cmd);
-          break;
-        case 'date': this.output( new Date() );
-          break;
-        case 'help': this.runHelp(args, cmd);
-          break;
-        case 'background': $('body').css("background-image", "url("+args[0]+")")
-          break;
-        case 'goto': this.redirect(args[0])
-          break;
-        case "reset":
-          resetWindowToDefault() //found in window-drag.js
-          this.clear()
-          break;
-        default:
+      let [ cmd, ...args ] = this.parseArguments(this.cmdLine_.value);
+      if(!cmd){
+        this.output("");
+      }else{
+        this.addCurrentLineToConsole();
+        cmd = cmd.toLowerCase();
+        if(Object.hasOwn(this.commands, cmd)){
+          const runCommand = this.commands[cmd]
+          runCommand(args, cmd)
+        }else{
           if (cmd) {
             this.output(cmd + ': command not found');
           }
+        }
       }
 
       window.scrollTo(0, this.getDocHeight_());
@@ -177,6 +183,16 @@ class TerminalEmulator{
         // this.cmdLine_.value = this.cmdLine_.value; // Sets cursor to end of input.
       }
     }
+  }
+
+  getDocHeight_() {
+    const d = document;
+
+    return Math.max(
+        Math.max(d.body.scrollHeight, d.documentElement.scrollHeight),
+        Math.max(d.body.offsetHeight, d.documentElement.offsetHeight),
+        Math.max(d.body.clientHeight, d.documentElement.clientHeight)
+    );
   }
 
   //Divided functions

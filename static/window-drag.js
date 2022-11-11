@@ -4,7 +4,13 @@ window.onload = (event) => {
   getPositionFromLocalStorage()
   let { height, width } = getSizeFromLocalStorage()
   setWindowSize(height, width)
-  document.getElementById("terminal-window").style.visibility = "visible"
+
+  const collapseIcon = document.getElementById("collapsible-icon")
+  // document.getElementById("terminal-window").style.visibility = "visible"
+  collapseIcon.onclick = ()=>{
+    console.log("Clicked on display")
+    collapseDisplay()
+  }
 };
 
 function getPositionFromLocalStorage(){
@@ -117,6 +123,8 @@ function moveWindow(top, left){
   const terminalWindow = document.getElementById("terminal-window")
   terminalWindow.style.top = top + "px";
   terminalWindow.style.left = left + "px";
+  // console.log(`translate(${left}px, ${top}px)`)
+  // terminalWindow.style.transform = `translate(${left}px, ${top}px)`
 }
 
 function setWindowSize(height, width){
@@ -136,3 +144,25 @@ function resetWindowToDefault(){
   saveSizeToLocalStorage(height, width)
   savePositionToLocalStorage(0,0)
 }
+
+function collapseDisplay(){
+  const terminalWindow = document.getElementById("terminal-window")
+  const terminalDisplay = document.getElementById("terminal-display")
+  if(terminalWindow.classList.contains(".terminal-collapsed")){
+    console.log("Okay? Unset")
+    terminalWindow.style.height = "300px"
+    terminalDisplay.style.visibility = "visible"
+    terminalWindow.style.overflow = "auto"
+    terminalWindow.style.resize = "both"
+    terminalWindow.classList.remove(".terminal-collapsed")
+  }else{
+    console.log("Okay? Set")
+    terminalWindow.style.height = "35px"
+    terminalDisplay.style.visibility = "hidden"
+    terminalWindow.style.overflow = "hidden"
+    terminalWindow.style.resize = "none"
+    terminalWindow.classList.toggle(".terminal-collapsed")
+  }
+  
+}
+

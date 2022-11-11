@@ -2,8 +2,6 @@
     position:fixed;
     background-color: #404347;
     color:white;
-
-    background: url("https://klondikelubricants.com/wp-content/uploads/2015/06/The-best-top-desktop-space-wallpapers-0n-hd-space-wallpaper-horse-head-nebula.jpeg");
     background-size: cover;
   }
 
@@ -15,24 +13,57 @@
     font-size: 9pt;
     font-family: Inconsolata, monospace;
     color: #57ff0a;
-    background-color: rgba(0,0,0,.5);
-    resize: both;
+    /* background-color: rgba(0,0,0,.5); */
+    /* resize: both; */
     overflow:auto;
-    border-radius:5px;
+    /* border-radius:5px; */
+    display:block; 
+    position:absolute; 
+    z-index:9;
   }
 
-  .terminal-collapsed{
-    display: none;
-    overflow: hidden;
+  #terminal-display{
+    height:88%;
+    overflow:auto;
   }
+
+  .terminal-collapsed{}
 
   #terminal-window-dragger{
     display:flex;
-    justify-content: center;
+    justify-content:flex-start;
     width:100%;
     background-color: #08101b;
-    border-radius: 5px;
+    height:35px;
+    align-items: center;
   }
+
+  #terminal-window-dragger span{
+    margin-left: 10px;
+  }
+
+  #collapse-icon{
+    display:block;
+    width:10px;
+    height:auto;
+  }
+
+  .wb-header{
+    background: rgba(0,0,0,0.3) !important;
+  }
+  .winbox{
+    background-color:transparent !important;
+  }
+  .wb-body{
+    background: rgba(0,0,0,0.3) !important;
+    /* background-color: transparent; */
+  }
+
+  #collapse-icon:hover{
+    color:blue;
+    /* transition-delay: 1s; */
+  }
+
   ::selection {
     background: #FF5E99;
   }
