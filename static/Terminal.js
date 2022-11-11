@@ -14,7 +14,8 @@ class TerminalEmulator{
       "echo":"Outputs a string into the console. Usage: echo string. Ex: echo Hello World",
       "background":"Changes the background image. Usage: background http://url.url",
       "goto":"Navigates to another page on website",
-      "window":"Creates a new window element"
+      "window":"Creates a new window element",
+      "wiki":"Opens up a wikipedia page, or another website (not all of them work)"
     }
     this.commands = {
       help:(args, cmd)=>{
