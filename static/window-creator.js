@@ -12,9 +12,13 @@ function savePositionToLocalStorage(x, y){
 
 function getPositionFromLocalStorage(){
     const positionString = localStorage.getItem('position')
-    const { x, y } = JSON.parse(positionString)
+    try{
+        const { x, y } = JSON.parse(positionString)
 
-    return { x, y }
+        return { x, y }
+    }catch(e){
+        return { x:0, y:0 }
+    }
 }
 
 const { x, y } = getPositionFromLocalStorage()
